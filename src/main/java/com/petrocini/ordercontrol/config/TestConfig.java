@@ -1,14 +1,8 @@
 package com.petrocini.ordercontrol.config;
 
-import com.petrocini.ordercontrol.entities.Category;
-import com.petrocini.ordercontrol.entities.Order;
-import com.petrocini.ordercontrol.entities.Product;
-import com.petrocini.ordercontrol.entities.User;
+import com.petrocini.ordercontrol.entities.*;
 import com.petrocini.ordercontrol.entities.enums.OrderStatus;
-import com.petrocini.ordercontrol.repositories.CategoryRepository;
-import com.petrocini.ordercontrol.repositories.OrderRepository;
-import com.petrocini.ordercontrol.repositories.ProductRepository;
-import com.petrocini.ordercontrol.repositories.UserRepository;
+import com.petrocini.ordercontrol.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -34,6 +28,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private OrderItemRepository orderItemRepository;
+
     @Override
     public void run(String... args) throws Exception {
 
@@ -57,6 +54,13 @@ public class TestConfig implements CommandLineRunner {
         Product p4 = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
         Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
         productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+
+        OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+        OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+        OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+        OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+
+        orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 
         p1.getCategories().add(cat2);
         p2.getCategories().add(cat1);
