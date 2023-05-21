@@ -1,5 +1,6 @@
 package com.petrocini.ordercontrol.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -89,6 +90,7 @@ public class Product implements Serializable {
         return categories;
     }
 
+    @JsonIgnore
     public Set<Order> getOrders() {
         Set<Order> set = new HashSet<>();
         for (OrderItem x : items) {
